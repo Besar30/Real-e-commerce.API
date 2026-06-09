@@ -10,6 +10,8 @@ namespace Real_e_commerce.Core.Interfaces
     {
         IQueryable<T> GetAll();
         Task<T> GetById(int id);
+        Task<T?> GetEntityWithSpec(ISpecifiaction<T> spec);
+        Task<IReadOnlyList<T>> ListAsync(ISpecifiaction<T> spec);
         void Add(T entity);
         void Update(T entity);
         void DeleteById(T entity);

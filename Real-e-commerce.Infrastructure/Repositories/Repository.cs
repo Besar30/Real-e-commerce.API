@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Real_e_commerce.Core.Entities;
 using Real_e_commerce.Core.Interfaces;
 using Real_e_commerce.Infrastructure.Data;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Real_e_commerce.Infrastructure.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly ApplicationDbContext _context;
         private DbSet<T> dbset;
@@ -38,6 +39,19 @@ namespace Real_e_commerce.Infrastructure.Repositories
         {
            dbset.Remove(entity); 
         }
-     
+
+        public async Task<T?> GetEntityWithSpec(ISpecifiaction<T> spec)
+        {
+            return await ApplySpecification(spec).FirstOrDefaultAsync();
+        }
+
+        public async Task<IReadOnlyList<T>> ListAsync(ISpecifiaction<T> spec)
+        {
+            return await ApplySpecification(spec).ToListAsync();
+        }
+        private IQueryable<T> ApplySpecification(ISpecifiaction<T> spec)
+        {
+            return SpecificationEvaluator<T>.GetQuery(dbset.AsQueryable(), spec);
+        }
     }
 }

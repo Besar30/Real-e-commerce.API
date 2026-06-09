@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Real_e_commerce.Core.Dtos.ProductFeatuer;
 using Real_e_commerce.Core.Entities;
 using Real_e_commerce.Core.Interfaces;
+using Real_e_commerce.Core.Specifiactions;
 
 namespace Real_e_commerce.API.Controllers
 {
@@ -13,7 +14,9 @@ namespace Real_e_commerce.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll(string? Brand,string? Type,string? sort)
         {
-            var products =await unitOfWork.ProductRepository.GetProductsAsync(Brand,Type,sort);
+            //var products =await unitOfWork.ProductRepository.GetProductsAsync(Brand,Type,sort);
+            ISpecifiaction<Product> spac=new ProductSpecification(Brand,Type,sort);
+            var products=await unitOfWork.ProductRepository.ListAsync(spac);
             return Ok(products);
         }
         [HttpGet("{id:int}")]
