@@ -3,6 +3,7 @@ using Real_e_commerce.Core.Interfaces;
 using Real_e_commerce.Infrastructure.Data;
 using Real_e_commerce.Infrastructure.Data.SeedingData;
 using Real_e_commerce.Infrastructure.Repositories;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Host.UseSerilog((context, configration) =>
+configration.ReadFrom.Configuration(context.Configuration));
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -27,7 +30,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseSerilogRequestLogging();
 app.MapControllers();
 try
 {
