@@ -1,0 +1,110 @@
+[
+  {
+    "Name": "Angular Speedster Board 2000",
+    "Description": "High performance Angular board designed for speed and stability.",
+    "Price": 200,
+    "PictureUrl": "/images/products/sb-ang1.png",
+    "Type": "Boards",
+    "Brand": "Angular",
+    "QuantityInStock": 82
+  },
+  {
+    "Name": "Green Angular Board 3000",
+    "Description": "Premium green Angular board with enhanced durability and control.",
+    "Price": 150,
+    "PictureUrl": "/images/products/sb-ang2.png",
+    "Type": "Boards",
+    "Brand": "Angular",
+    "QuantityInStock": 65
+  },
+  {
+    "Name": "Angular Pro Board X",
+    "Description": "Professional board built for advanced riders and long sessions.",
+    "Price": 250,
+    "PictureUrl": "/images/products/sb-ang3.png",
+    "Type": "Boards",
+    "Brand": "Angular",
+    "QuantityInStock": 40
+  },
+  {
+    "Name": "React Rocket Board",
+    "Description": "Lightweight board with excellent maneuverability and speed.",
+    "Price": 220,
+    "PictureUrl": "/images/products/sb-react1.png",
+    "Type": "Boards",
+    "Brand": "React",
+    "QuantityInStock": 55
+  },
+  {
+    "Name": "React Cruiser 500",
+    "Description": "Comfortable cruising board suitable for beginners and experts.",
+    "Price": 180,
+    "PictureUrl": "/images/products/sb-react2.png",
+    "Type": "Boards",
+    "Brand": "React",
+    "QuantityInStock": 90
+  },
+  {
+    "Name": "Vue Velocity Board",
+    "Description": "Versatile board with smooth handling and responsive control.",
+    "Price": 210,
+    "PictureUrl": "/images/products/sb-vue1.png",
+    "Type": "Boards",
+    "Brand": "Vue",
+    "QuantityInStock": 73
+  },
+  {
+    "Name": "Vue Storm Board",
+    "Description": "Durable board engineered for outdoor adventures and rough terrain.",
+    "Price": 260,
+    "PictureUrl": "/images/products/sb-vue2.png",
+    "Type": "Boards",
+    "Brand": "Vue",
+    "QuantityInStock": 34
+  },
+  {
+    "Name": "Angular Racing Helmet",
+    "Description": "Safety helmet designed for maximum protection and comfort.",
+    "Price": 75,
+    "PictureUrl": "/images/products/helmet-ang1.png",
+    "Type": "Helmets",
+    "Brand": "Angular",
+    "QuantityInStock": 120
+  },
+  {
+    "Name": "React Street Helmet",
+    "Description": "Stylish helmet with reinforced shell and ventilation system.",
+    "Price": 80,
+    "PictureUrl": "/images/products/helmet-react1.png",
+    "Type": "Helmets",
+    "Brand": "React",
+    "QuantityInStock": 95
+  },
+  {
+    "Name": "Vue Adventure Helmet",
+    "Description": "Comfortable adventure helmet with adjustable fit system.",
+    "Price": 90,
+    "PictureUrl": "/images/products/helmet-vue1.png",
+    "Type": "Helmets",
+    "Brand": "Vue",
+    "QuantityInStock": 70
+  },
+  {
+    "Name": "Angular Grip Gloves",
+    "Description": "High grip gloves for better board control and comfort.",
+    "Price": 25,
+    "PictureUrl": "/images/products/gloves-ang1.png",
+    "Type": "Accessories",
+    "Brand": "Angular",
+    "QuantityInStock": 200
+  },
+  {
+    "Name": "React Rider Gloves",
+    "Description": "Breathable gloves with reinforced palms for long rides.",
+    "Price": 30,
+    "PictureUrl": "/images/products/gloves-react1.png",
+    "Type": "Accessories",
+    "Brand": "React",
+    "QuantityInStock": 175
+  }
+]
