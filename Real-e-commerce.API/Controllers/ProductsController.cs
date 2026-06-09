@@ -11,9 +11,9 @@ namespace Real_e_commerce.API.Controllers
     public class ProductsController(IUnitOfWork unitOfWork) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(string? Brand,string? Type,string? sort)
         {
-            var products =await unitOfWork.ProductRepository.GetAll().ToListAsync();
+            var products =await unitOfWork.ProductRepository.GetProductsAsync(Brand,Type,sort);
             return Ok(products);
         }
         [HttpGet("{id:int}")]
@@ -54,6 +54,18 @@ namespace Real_e_commerce.API.Controllers
             unitOfWork.ProductRepository.DeleteById(product);
             await unitOfWork.Save();
             return Ok();
+        }
+        [HttpGet("Brands")]
+        public async Task<IActionResult> GetBrands()
+        {
+            var Brands=await unitOfWork.ProductRepository.GetBrandsAsync();
+            return Ok(Brands);
+        }
+        [HttpGet("Types")]
+        public async Task<IActionResult> GetTypes()
+        {
+            var Types = await unitOfWork.ProductRepository.GetTypesAsync();
+            return Ok(Types);
         }
     }
 }
