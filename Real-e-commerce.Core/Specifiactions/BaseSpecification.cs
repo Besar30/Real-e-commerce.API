@@ -22,6 +22,17 @@ namespace Real_e_commerce.Core.Specifiactions
 
         public bool IsDistinct { get; private set; }
 
+        public int Take {  get; private set; }
+
+        public int Skip{ get; private set; }
+
+        public bool IspagingEnabled { get; private set; }
+        protected void ApplyPagination(int skip, int take)
+        {
+            IspagingEnabled=true;
+            Take=take;
+            Skip=skip;
+        }
         protected void AddOrderBy(Expression<Func<T, object>> orderByExpression) {
             OrderBy = orderByExpression;
         }
@@ -32,6 +43,16 @@ namespace Real_e_commerce.Core.Specifiactions
         protected void ApplyDistinct()
         {
             IsDistinct = true;
+        }
+
+        public IQueryable<T> ApplyCriteria(IQueryable<T> query)
+        {
+           
+            if (criteria != null)
+            {
+                query = query.Where(criteria);
+            }
+            return query;
         }
     }
     public class BaseSpecification<T, TResult>(Expression<Func<T, bool>>? criteria) : BaseSpecification<T>(criteria), ISpecifiaction<T, TResult> {

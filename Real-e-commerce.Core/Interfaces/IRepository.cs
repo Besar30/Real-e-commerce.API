@@ -17,5 +17,6 @@ namespace Real_e_commerce.Core.Interfaces
         void Add(T entity);
         void Update(T entity);
         void DeleteById(T entity);
+        Task<int> CountAsync(ISpecifiaction<T> Spec);
     }
 }

@@ -68,5 +68,12 @@ namespace Real_e_commerce.Infrastructure.Repositories
         {
             return SpecificationEvaluator<T>.GetQuery<T,TResult>(dbset.AsQueryable(), spec);
         }
+
+        public async Task<int> CountAsync(ISpecifiaction<T> Spec)
+        {
+           var query=dbset.AsQueryable();
+            query = Spec.ApplyCriteria(query);
+            return await query.CountAsync();
+        }
     }
 }

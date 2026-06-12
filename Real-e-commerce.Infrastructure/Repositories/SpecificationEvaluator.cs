@@ -27,6 +27,10 @@ namespace Real_e_commerce.Infrastructure.Repositories
             {
                 query=query.Distinct();
             }
+            if (spec.IspagingEnabled)
+            {
+                query=query.Skip(spec.Skip).Take(spec.Take);
+            }
             return query;
         }
         public static IQueryable<TResult> GetQuery<TSpec,TResult>(IQueryable<T> query, ISpecifiaction<T,TResult> spec)
@@ -49,6 +53,10 @@ namespace Real_e_commerce.Infrastructure.Repositories
             }
             if (spec.IsDistinct) {
                 selectQuery=selectQuery?.Distinct();
+            }
+            if (spec.IspagingEnabled)
+            {
+                selectQuery = selectQuery?.Skip(spec.Skip).Take(spec.Take);
             }
             return selectQuery ?? query.Cast<TResult>();
         }

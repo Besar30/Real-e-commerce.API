@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Real_e_commerce.API.RequestHelpers;
 using Real_e_commerce.Core.Dtos.ProductFeatuer;
 using Real_e_commerce.Core.Entities;
 using Real_e_commerce.Core.Interfaces;
@@ -12,12 +13,14 @@ namespace Real_e_commerce.API.Controllers
     public class ProductsController(IUnitOfWork unitOfWork) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAll(string? Brand,string? Type,string? sort)
+        public async Task<IActionResult> GetAll(
+            [FromQuery]ProductSpecificationPrams specPram)
         {
-            //var products =await unitOfWork.ProductRepository.GetProductsAsync(Brand,Type,sort);
-            ISpecifiaction<Product> spac=new ProductSpecification(Brand,Type,sort);
+            ISpecifiaction<Product> spac=new ProductSpecification(specPram);
             var products=await unitOfWork.ProductRepository.ListAsync(spac);
-            return Ok(products);
+            var count= await unitOfWork.ProductRepository.CountAsync(spac);
+            var pagination = PaginationResult<Product>.CreatePagination(products, count, specPram.pageIndex, specPram.PageSize); ;
+            return Ok(pagination);
         }
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
