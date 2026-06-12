@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Real_e_commerce.API.Middleware;
 using Real_e_commerce.Core.Interfaces;
 using Real_e_commerce.Infrastructure.Data;
 using Real_e_commerce.Infrastructure.Data.SeedingData;
@@ -31,6 +32,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseSerilogRequestLogging();
+app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
 try
 {
