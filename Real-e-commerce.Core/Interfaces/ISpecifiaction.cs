@@ -12,5 +12,10 @@ namespace Real_e_commerce.Core.Interfaces
         Expression<Func<T, bool>>? Criteria { get; }
         Expression<Func<T, object>>? OrderBy { get; }
         Expression<Func<T, object>>? OrderByDescending { get; }
+        bool IsDistinct { get; }
+    }
+    public interface ISpecifiaction<T,TResult>:ISpecifiaction<T>
+    {
+       Expression<Func<T,TResult>>? Select {  get; }
     }
 }

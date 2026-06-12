@@ -61,13 +61,15 @@ namespace Real_e_commerce.API.Controllers
         [HttpGet("Brands")]
         public async Task<IActionResult> GetBrands()
         {
-            var Brands=await unitOfWork.ProductRepository.GetBrandsAsync();
+            var spec = new BrandListSpecification();
+            var Brands=await unitOfWork.ProductRepository.ListAsync(spec);
             return Ok(Brands);
         }
         [HttpGet("Types")]
         public async Task<IActionResult> GetTypes()
         {
-            var Types = await unitOfWork.ProductRepository.GetTypesAsync();
+            var spec= new TypeListSpecification();
+            var Types = await unitOfWork.ProductRepository.ListAsync(spec);
             return Ok(Types);
         }
     }

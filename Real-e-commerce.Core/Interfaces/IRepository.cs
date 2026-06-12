@@ -12,6 +12,8 @@ namespace Real_e_commerce.Core.Interfaces
         Task<T> GetById(int id);
         Task<T?> GetEntityWithSpec(ISpecifiaction<T> spec);
         Task<IReadOnlyList<T>> ListAsync(ISpecifiaction<T> spec);
+        Task<TResult?> GetEntityWithSpec<TResult>(ISpecifiaction<T, TResult> spec);
+        Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecifiaction<T,TResult> spec);
         void Add(T entity);
         void Update(T entity);
         void DeleteById(T entity);

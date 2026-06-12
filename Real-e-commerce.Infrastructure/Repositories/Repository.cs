@@ -49,9 +49,24 @@ namespace Real_e_commerce.Infrastructure.Repositories
         {
             return await ApplySpecification(spec).ToListAsync();
         }
+       
+        public async Task<TResult?> GetEntityWithSpec<TResult>(ISpecifiaction<T, TResult> spec)
+        {
+            return await ApplySpecification(spec).FirstOrDefaultAsync();
+        }
+
+        public async Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecifiaction<T,TResult> spec)
+        {
+            return await ApplySpecification(spec).ToListAsync();
+        }
         private IQueryable<T> ApplySpecification(ISpecifiaction<T> spec)
         {
             return SpecificationEvaluator<T>.GetQuery(dbset.AsQueryable(), spec);
+
+        }
+        private IQueryable<TResult> ApplySpecification<TResult>(ISpecifiaction<T,TResult> spec)
+        {
+            return SpecificationEvaluator<T>.GetQuery<T,TResult>(dbset.AsQueryable(), spec);
         }
     }
 }
