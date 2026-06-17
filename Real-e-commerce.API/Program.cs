@@ -4,7 +4,9 @@ using Real_e_commerce.Core.Interfaces;
 using Real_e_commerce.Infrastructure.Data;
 using Real_e_commerce.Infrastructure.Data.SeedingData;
 using Real_e_commerce.Infrastructure.Repositories;
+using Real_e_commerce.Infrastructure.Services;
 using Serilog;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,14 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
+{
+    var connString = builder.Configuration.GetConnectionString("Redis");
+    if (connString == null) throw new Exception("cannot get radis connection string");
+    var configration = ConfigurationOptions.Parse(connString, true);
+    return ConnectionMultiplexer.Connect(configration);
+});
+builder.Services.AddSingleton<ICartServices, CartServices>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
