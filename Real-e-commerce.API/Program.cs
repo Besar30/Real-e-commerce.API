@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Real_e_commerce.API.Middleware;
+using Real_e_commerce.Core.Entities;
 using Real_e_commerce.Core.Interfaces;
 using Real_e_commerce.Infrastructure.Data;
 using Real_e_commerce.Infrastructure.Data.SeedingData;
@@ -27,9 +28,11 @@ builder.Services.AddCors(options =>
     {
         policy.AllowAnyOrigin()
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
+
 builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
 {
     var connString = builder.Configuration.GetConnectionString("Redis");
@@ -38,6 +41,9 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
     return ConnectionMultiplexer.Connect(configration);
 });
 builder.Services.AddSingleton<ICartServices, CartServices>();
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<AppUser>()
+       .AddEntityFrameworkStores<ApplicationDbContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -52,6 +58,7 @@ app.UseAuthorization();
 app.UseSerilogRequestLogging();
 app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
+app.MapGroup("api").MapIdentityApi<AppUser>();
 try
 {
     using var scope = app.Services.CreateScope();
