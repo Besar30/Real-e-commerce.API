@@ -9,6 +9,7 @@ namespace Real_e_commerce.Core.Interfaces
     public interface IUnitOfWork
     {
         IProductRepository ProductRepository { get; }
+        IDeliveryMethodRepository DeliveryMethodRepository { get; }
         Task<bool> Save();
     }
 }

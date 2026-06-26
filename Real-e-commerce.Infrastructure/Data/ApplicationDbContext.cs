@@ -14,6 +14,7 @@ namespace Real_e_commerce.Infrastructure.Data
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
             

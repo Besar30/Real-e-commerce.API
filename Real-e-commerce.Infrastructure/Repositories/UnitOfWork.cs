@@ -12,6 +12,8 @@ namespace Real_e_commerce.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext _context;
         private IProductRepository productRepository;
+        private IDeliveryMethodRepository deliveryMethodRepository;
+       
         public UnitOfWork(ApplicationDbContext context)
         {
             _context=context;
@@ -20,6 +22,11 @@ namespace Real_e_commerce.Infrastructure.Repositories
         public IProductRepository ProductRepository {
             get => productRepository ??= new ProductRepository(_context);
         }
+        public IDeliveryMethodRepository DeliveryMethodRepository
+        {
+            get => deliveryMethodRepository ??= new DeliveryMethodRepository(_context);
+        }
+
 
         public async Task<bool> Save()
         {

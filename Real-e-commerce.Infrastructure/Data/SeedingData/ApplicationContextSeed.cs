@@ -19,6 +19,12 @@ namespace Real_e_commerce.Infrastructure.Data.SeedingData
                 context.Products.AddRange(products);
                 await context.SaveChangesAsync();
             }
+            if (!context.DeliveryMethods.Any()) {
+                var delivertData = await File.ReadAllTextAsync("../Real-e-commerce.Infrastructure/Data/SeedingData/delivery.json");
+                var deliveries = JsonSerializer.Deserialize<List<DeliveryMethod>>(delivertData);
+                context.DeliveryMethods.AddRange(deliveries);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

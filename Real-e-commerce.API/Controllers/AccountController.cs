@@ -55,7 +55,7 @@ namespace Real_e_commerce.API.Controllers
                 address=user.Address.ToDto()
             });
         }
-        [HttpGet]
+        [HttpGet("auth-status")]
         public  IActionResult GetAuthState()
         {
             return Ok(new

@@ -6,6 +6,7 @@ using Real_e_commerce.Infrastructure.Data;
 using Real_e_commerce.Infrastructure.Data.SeedingData;
 using Real_e_commerce.Infrastructure.Repositories;
 using Real_e_commerce.Infrastructure.Services;
+using Real_e_commerce.Infrastructure.Setting;
 using Serilog;
 using StackExchange.Redis;
 
@@ -26,7 +27,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("https://localhost:4200", "https://localhost:7135")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -41,9 +42,11 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
     return ConnectionMultiplexer.Connect(configration);
 });
 builder.Services.AddSingleton<ICartServices, CartServices>();
+builder.Services.AddScoped<IPaymentServices,PaymentServices>();
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<AppUser>()
        .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.Configure<StripeSetting>(builder.Configuration.GetSection("StripeSetting"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
