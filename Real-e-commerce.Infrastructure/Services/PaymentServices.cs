@@ -18,7 +18,7 @@ namespace Real_e_commerce.Infrastructure.Services
         public async Task<ShoppingCart?> CreateOrUpdatePaymentIntent(string cartId)
         {
             StripeConfiguration.ApiKey = options.SecretKey;
-            ShoppingCart cart=await cartServices.GetCartAsync(cartId);
+            ShoppingCart? cart=await cartServices.GetCartAsync(cartId);
             if (cart == null) return null;
             decimal shippingPrice = 0m;
             if (cart.DeliveryMethodId.HasValue)

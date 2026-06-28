@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Real_e_commerce.Core.Entities;
+using Real_e_commerce.Core.Entities.OrderAggregate;
 using Real_e_commerce.Infrastructure.Config;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace Real_e_commerce.Infrastructure.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
             

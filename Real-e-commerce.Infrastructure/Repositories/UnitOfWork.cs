@@ -26,7 +26,11 @@ namespace Real_e_commerce.Infrastructure.Repositories
         {
             get => deliveryMethodRepository ??= new DeliveryMethodRepository(_context);
         }
-
+        private IOrderRepositoty orderRepositoty;
+        public IOrderRepositoty OrderRepositoty
+        {
+            get => orderRepositoty ?? new OrderRepositoty(_context);
+        }
 
         public async Task<bool> Save()
         {

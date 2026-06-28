@@ -1,4 +1,5 @@
-﻿using Real_e_commerce.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Real_e_commerce.Core.Entities;
 using Real_e_commerce.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,9 @@ namespace Real_e_commerce.Infrastructure.Repositories
             {
                 query=query.Skip(spec.Skip).Take(spec.Take);
             }
+            query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
+            query = spec.IncludeStrings.Aggregate(query, (current, include) => current.Include(include));
+
             return query;
         }
         public static IQueryable<TResult> GetQuery<TSpec,TResult>(IQueryable<T> query, ISpecifiaction<T,TResult> spec)

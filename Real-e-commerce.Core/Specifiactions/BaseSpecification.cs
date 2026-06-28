@@ -27,6 +27,18 @@ namespace Real_e_commerce.Core.Specifiactions
         public int Skip{ get; private set; }
 
         public bool IspagingEnabled { get; private set; }
+
+        public List<Expression<Func<T, object>>> Includes { get; } = [];
+
+        public List<string> IncludeStrings { get; } = [];
+        protected void AddInclude(Expression<Func<T,object>> includeExpression)
+        {
+            Includes.Add(includeExpression);
+        }
+        protected void AddInclude(string includeExpression)
+        {
+            IncludeStrings.Add(includeExpression);
+        }
         protected void ApplyPagination(int skip, int take)
         {
             IspagingEnabled=true;

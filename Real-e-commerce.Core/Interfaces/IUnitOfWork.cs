@@ -10,6 +10,7 @@ namespace Real_e_commerce.Core.Interfaces
     {
         IProductRepository ProductRepository { get; }
         IDeliveryMethodRepository DeliveryMethodRepository { get; }
+        IOrderRepositoty OrderRepositoty { get; }
         Task<bool> Save();
     }
 }
