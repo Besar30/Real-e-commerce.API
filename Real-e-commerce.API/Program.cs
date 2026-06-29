@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Real_e_commerce.API.Middleware;
+using Real_e_commerce.API.SignalR;
 using Real_e_commerce.Core.Entities;
 using Real_e_commerce.Core.Interfaces;
 using Real_e_commerce.Infrastructure.Data;
@@ -47,6 +48,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<AppUser>()
        .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.Configure<StripeSetting>(builder.Configuration.GetSection("StripeSetting"));
+builder.Services.AddSignalR();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -56,12 +58,13 @@ if (app.Environment.IsDevelopment())
 }
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseSerilogRequestLogging();
 app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
 app.MapGroup("api").MapIdentityApi<AppUser>();
+app.MapHub<NotificationHub>("/hub/notifications");
 try
 {
     using var scope = app.Services.CreateScope();

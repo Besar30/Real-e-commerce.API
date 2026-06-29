@@ -10,5 +10,6 @@ namespace Real_e_commerce.Infrastructure.Setting
     {
         public string PublishableKey { get; set; }
         public string SecretKey { get; set; }
+        public string WhSecret {get; set;}
     }
 }

@@ -54,7 +54,7 @@ namespace Real_e_commerce.API.Controllers
             };
             unitOfWork.OrderRepositoty.Add(order);
             if(await unitOfWork.Save())
-                return Ok(order);
+                return Ok(order.ToDto());
             return BadRequest("Problem Creating order");
         }
         [HttpGet]
@@ -62,7 +62,8 @@ namespace Real_e_commerce.API.Controllers
         {
             var spec = new OrderSpecification(User.GetEmail());
             var orders = await unitOfWork.OrderRepositoty.ListAsync(spec);
-            return Ok(orders);
+            var ordersToReturn=orders.Select(x=>x.ToDto()).ToList();
+            return Ok(ordersToReturn);
         }
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetOrderById(int id)
@@ -70,7 +71,7 @@ namespace Real_e_commerce.API.Controllers
             var spec=new OrderSpecification(User.GetEmail(),id);
             var order=await unitOfWork.OrderRepositoty.GetEntityWithSpec(spec);
             if(order == null) return NotFound();    
-            return Ok(order);
+            return Ok(order.ToDto());
         }
 
     }
