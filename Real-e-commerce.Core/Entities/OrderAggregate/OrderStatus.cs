@@ -11,6 +11,7 @@ namespace Real_e_commerce.Core.Entities.OrderAggregate
         Pending,
         PaymentRecived,
         PaymentFaild,
-        PaymentMismatch
+        PaymentMismatch,
+        Refunded
     }
 }

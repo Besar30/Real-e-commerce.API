@@ -4,5 +4,6 @@ namespace Real_e_commerce.Core.Interfaces
     public interface IPaymentServices
     {
         Task<ShoppingCart?> CreateOrUpdatePaymentIntent(string cartId);
+        Task<string> RefundPayment(string paymentIntentId);
     }
 }

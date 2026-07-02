@@ -6,20 +6,9 @@ using System.Threading.Tasks;
 
 namespace Real_e_commerce.Core.Specifiactions
 {
-    public class ProductSpecificationPrams
+    public class ProductSpecificationPrams: PagingParams
     {
-        public const int MaxPageSize = 60;
-        public int pageIndex { get; set; } = 1;
-
-        private int _pageSize=10;
-        public int PageSize
-        {
-            get => _pageSize;
-            set
-            {
-                _pageSize = value > MaxPageSize ? MaxPageSize : value;
-            }
-        }
+      
         private List<string> _brands = [];
         public List<string> Brands
         {

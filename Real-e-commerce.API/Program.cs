@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Real_e_commerce.API.Middleware;
 using Real_e_commerce.API.SignalR;
@@ -46,6 +47,7 @@ builder.Services.AddSingleton<ICartServices, CartServices>();
 builder.Services.AddScoped<IPaymentServices,PaymentServices>();
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<AppUser>()
+       .AddRoles<IdentityRole>()
        .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.Configure<StripeSetting>(builder.Configuration.GetSection("StripeSetting"));
 builder.Services.AddSignalR();
@@ -70,8 +72,10 @@ try
     using var scope = app.Services.CreateScope();
     var services= scope.ServiceProvider;
     var context= services.GetRequiredService<ApplicationDbContext>();
+    var userManger = services.GetRequiredService<UserManager<AppUser>>();
+
     await context.Database.MigrateAsync();
-    await ApplicationContextSeed.SeedAsync(context);
+    await ApplicationContextSeed.SeedAsync(context, userManger);
 }
 catch (Exception ex)
 {

@@ -33,6 +33,7 @@ namespace Real_e_commerce.API.Controllers
                 }
                 return ValidationProblem();
             }
+            await signInManager.UserManager.AddToRoleAsync(user, "Customer");
             return Ok();     
         }
         [Authorize]
@@ -47,12 +48,14 @@ namespace Real_e_commerce.API.Controllers
         {
             if (User.Identity.IsAuthenticated == false) return NoContent();
             var user = await signInManager.UserManager.GetUserByEmailWithAddress(User);
+            
             return Ok(new
             {
                 user.FirstName,
                 user.LastName,
                 user.Email,
-                address=user.Address.ToDto()
+                address=user.Address.ToDto(),
+                Role=User.FindFirstValue(ClaimTypes.Role)
             });
         }
         [HttpGet("auth-status")]

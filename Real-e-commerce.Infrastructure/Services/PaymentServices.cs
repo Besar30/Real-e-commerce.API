@@ -61,5 +61,17 @@ namespace Real_e_commerce.Infrastructure.Services
             await cartServices.SetCartAsync(cart);
             return cart;
         }
+
+        public async Task<string> RefundPayment(string paymentIntentId)
+        {
+            StripeConfiguration.ApiKey = options.SecretKey;
+            var refundOptions = new RefundCreateOptions
+            {
+                PaymentIntent = paymentIntentId
+            };
+            var refundService = new RefundService();
+            var result=await refundService.CreateAsync(refundOptions);
+            return result.Status;
+        }
     }
 }

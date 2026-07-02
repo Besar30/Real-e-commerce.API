@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Real_e_commerce.API.RequestHelpers;
 using Real_e_commerce.Core.Dtos.ProductFeatuer;
@@ -30,6 +31,7 @@ namespace Real_e_commerce.API.Controllers
                 return NotFound();
             return Ok(product);
         }
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<IActionResult> AddProduct(Product product)
         {
@@ -39,6 +41,7 @@ namespace Real_e_commerce.API.Controllers
                 return Created();
             return BadRequest();
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateProduct([FromRoute]int id,[FromBody]UpdateProductDto prod)
         {
@@ -51,6 +54,7 @@ namespace Real_e_commerce.API.Controllers
                 return Ok(product);
             return Ok("No changes were made");
         }
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {

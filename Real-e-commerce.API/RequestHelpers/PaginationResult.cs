@@ -9,7 +9,7 @@
         public int Count { get; set;}
         public int PageCount => (int)Math.Ceiling((double)Count / pageSize);
         public bool hasNext => pageIndex < PageCount;
-        public bool hasPrevious => pageIndex > 0;
+        public bool hasPrevious => pageIndex > 1;
         public static PaginationResult<T> CreatePagination(IReadOnlyList<T> Data,int totalCount, int pageIndex, int pageSize)
         {
             return new PaginationResult<T>

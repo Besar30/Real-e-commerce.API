@@ -19,5 +19,26 @@ namespace Real_e_commerce.Core.Specifiactions
             AddInclude("OrderItems");
             AddInclude("DeliveryMethod");
         }
+        public OrderSpecification(OrderSpecParsms orderSpec):base(x=>
+           string.IsNullOrEmpty(orderSpec.Status) || x.Status==ParseStatus(orderSpec.Status))
+        {
+            AddInclude("OrderItems");
+            AddInclude("DeliveryMethod");
+            ApplyPagination(orderSpec.PageSize * (orderSpec.pageIndex - 1), orderSpec.PageSize);
+            AddOrderByDescending(x => x.OrderDate);
+        }
+        public OrderSpecification(int id):base(x=>x.Id==id) 
+        {
+            AddInclude("OrderItems");
+            AddInclude("DeliveryMethod");
+        }
+        private static OrderStatus? ParseStatus(string status)
+        {
+            if(Enum.TryParse<OrderStatus>(status,true, out var statusValue))
+            {
+                return statusValue;
+            }
+            return null;
+        }
     }
 }
