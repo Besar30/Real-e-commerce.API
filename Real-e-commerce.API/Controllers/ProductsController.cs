@@ -13,7 +13,9 @@ namespace Real_e_commerce.API.Controllers
     [ApiController]
     public class ProductsController(IUnitOfWork unitOfWork) : ControllerBase
     {
+        [Cache(600)]
         [HttpGet]
+
         public async Task<IActionResult> GetAll(
             [FromQuery]ProductSpecificationPrams specPram)
         {
@@ -23,6 +25,7 @@ namespace Real_e_commerce.API.Controllers
             var pagination = PaginationResult<Product>.CreatePagination(products, count, specPram.pageIndex, specPram.PageSize); ;
             return Ok(pagination);
         }
+        [Cache(600)]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -31,6 +34,7 @@ namespace Real_e_commerce.API.Controllers
                 return NotFound();
             return Ok(product);
         }
+        [InvalidateCache("api/Products|")]
         [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<IActionResult> AddProduct(Product product)
@@ -41,6 +45,7 @@ namespace Real_e_commerce.API.Controllers
                 return Created();
             return BadRequest();
         }
+        [InvalidateCache("api/Products|")]
         [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateProduct([FromRoute]int id,[FromBody]UpdateProductDto prod)
@@ -54,6 +59,7 @@ namespace Real_e_commerce.API.Controllers
                 return Ok(product);
             return Ok("No changes were made");
         }
+        [InvalidateCache("api/Products|")]
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteProduct(int id)
@@ -65,6 +71,7 @@ namespace Real_e_commerce.API.Controllers
             await unitOfWork.Save();
             return Ok();
         }
+        [Cache(10000)]
         [HttpGet("Brands")]
         public async Task<IActionResult> GetBrands()
         {
@@ -72,6 +79,7 @@ namespace Real_e_commerce.API.Controllers
             var Brands=await unitOfWork.ProductRepository.ListAsync(spec);
             return Ok(Brands);
         }
+        [Cache(10000)]
         [HttpGet("Types")]
         public async Task<IActionResult> GetTypes()
         {
